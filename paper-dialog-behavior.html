@@ -1,0 +1,72 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
+
+<!--
+`paper-dialog-behavior` implements behavior related to a Material Design dialog. Use this behavior
+and include `paper-dialog-common.css` in your element to implement a dialog.
+
+`paper-dialog-common.css` provide styles for a header, content area, and an action area for buttons.
+Use the `<h2>` tag for the header and the `buttons` class for the action area. You can use the
+`paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
+
+Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive controls to close the
+dialog.
+
+For example, if `<paper-dialog-impl>` implements this behavior:
+
+    <paper-dialog-impl>
+        <h2>Header</h2>
+        <div>Dialog body</div>
+        <div class="buttons">
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm>Accept</paper-button>
+        </div>
+    </paper-dialog-impl>
+-->
+
+<script>
+
+  Polymer.PaperDialogBehavior = Polymer.IronOverlayBehavior.concat({
+
+    hostAttributes: {
+      'role': 'dialog'
+    },
+
+    listeners: {
+      'click': '_onDialogClick'
+    },
+
+    _updatClosingReasonConfirmed: function(confirmed) {
+      this.closingReason = this.closingReason || {};
+      this.closingReason.confirmed = confirmed;
+    },
+
+    _onDialogClick: function(event) {
+      var target = event.target;
+      while (target !== this) {
+        if (target.hasAttribute('dialog-dismiss')) {
+          this._updatClosingReasonConfirmed(false);
+          this.close();
+          break;
+        } else if (target.hasAttribute('dialog-confirm')) {
+          this._updatClosingReasonConfirmed(true);
+          this.close();
+          break;
+        }
+        target = target.parentNode;
+      }
+    }
+
+  });
+
+</script>
