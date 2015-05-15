@@ -1,11 +1,15 @@
 {
   "name": "paper-dialog-behavior",
   "version": "0.9.0",
+  "description": "Implements a behavior used for material design dialogs",
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
     "web-component",
-    "polymer"
+    "polymer",
+    "paper",
+    "dialog",
+    "behavior"
   ],
   "main": [
     "paper-dialog-behavior.html"
@@ -19,9 +23,9 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog-behavior",
   "ignore": [],
   "dependencies": {
-    "polymer": "Polymer/polymer#v0.9.0-rc.1",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^0.9.0",
-    "paper-styles": "PolymerElements/paper-styles#^0.9.0"
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
@@ -29,6 +33,6 @@
     "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^0.9.0",
     "test-fixture": "PolymerElements/test-fixture#^0.9.0",
     "web-component-tester": "*",
-    "webcomponentsjs": "^0.6.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }
