@@ -40,6 +40,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
+    <test-fixture id="modal">
+      <template>
+        <test-dialog modal>
+          <p>Dialog</p>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="header">
+      <template>
+        <test-dialog>
+          <h2>Dialog</h2>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="header-with-id">
+      <template>
+        <test-dialog>
+          <h2 id="header">Dialog</h2>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
     <script>
 
       function runAfterOpen(dialog, cb) {
@@ -88,6 +124,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
 
+        test('modal dialog has backdrop', function() {
+          var dialog = fixture('modal');
+          assert.isTrue(dialog.withBackdrop, 'withBackdrop is true');
+        });
+
+        test('modal dialog has no-cancel-on-outside-click', function() {
+          var dialog = fixture('modal');
+          assert.isTrue(dialog.noCancelOnOutsideClick, 'noCancelOnOutsideClick is true');
+        });
+
+        test('clicking outside a modal dialog does not move focus from dialog', function(done) {
+          var dialog = fixture('modal');
+          runAfterOpen(dialog, function() {
+            dialog.backdropElement.click();
+            setTimeout(function() {
+              assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
+              done();
+            }, 10);
+          });
+        });
+
       });
 
       suite('a11y', function() {
@@ -95,6 +152,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('dialog has role="dialog"', function() {
           var dialog = fixture('basic');
           assert.equal(dialog.getAttribute('role'), 'dialog', 'has role="dialog"');
+        });
+
+        test('dialog has aria-modal=false', function() {
+          var dialog = fixture('basic');
+          assert.equal(dialog.getAttribute('aria-modal'), 'false', 'has aria-modal="false"');
+        });
+
+        test('modal dialog has aria-modal=true', function() {
+          var dialog = fixture('modal');
+          assert.equal(dialog.getAttribute('aria-modal'), 'true', 'has aria-modal="true"');
+        });
+
+        test('dialog with header has aria-labelledby', function() {
+          var dialog = fixture('header');
+          var header = Polymer.dom(dialog).querySelector('h2');
+          assert.ok(header.getAttribute('id'), 'header has auto-generated id');
+          assert.equal(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), 'aria-labelledby is set to header id');
+        });
+
+        test('dialog with lazily created header has aria-labelledby', function(done) {
+          var dialog = fixture('basic');
+          var header = document.createElement('h2');
+          Polymer.dom(dialog).appendChild(header);
+          Polymer.dom.flush();
+          setTimeout(function() {
+            assert.ok(header.getAttribute('id'), 'header has auto-generated id');
+            assert.equal(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), 'aria-labelledby is set to header id');
+            done();
+          }, 10);
+        });
+
+        test('dialog with header with id preserves id and has aria-labelledby', function() {
+          var dialog = fixture('header-with-id');
+          var header = Polymer.dom(dialog).querySelector('h2');
+          assert.equal(header.getAttribute('id'), 'header', 'header has preset id');
+          assert.equal(dialog.getAttribute('aria-labelledby'), 'header', 'aria-labelledby is set to header id');
         });
 
       });
