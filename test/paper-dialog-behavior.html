@@ -52,6 +52,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
+    <test-fixture id="backdrop">
+      <template>
+        <test-dialog with-backdrop>
+          <p>Dialog</p>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
     <test-fixture id="header">
       <template>
         <test-dialog>
@@ -121,6 +133,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               done();
             });
             Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
+          });
+        });
+
+        test('with-backdrop works', function() {
+          var dialog = fixture('backdrop');
+          runAfterOpen(dialog, function() {
+            assert.isTrue(dialog.backdropElement.opened, 'backdrop is open');
           });
         });
 
