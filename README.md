@@ -12,11 +12,13 @@ dialog.
 
 For example, if `<paper-dialog-impl>` implements this behavior:
 
-    <paper-dialog-impl>
-        <h2>Header</h2>
-        <div>Dialog body</div>
-        <div class="buttons">
-            <paper-button dialog-dismiss>Cancel</paper-button>
-            <paper-button dialog-confirm>Accept</paper-button>
-        </div>
-    </paper-dialog-impl>
+```html
+<paper-dialog-impl>
+    <h2>Header</h2>
+    <div>Dialog body</div>
+    <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm>Accept</paper-button>
+    </div>
+</paper-dialog-impl>
+```
