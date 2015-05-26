@@ -5,10 +5,9 @@
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
-    "web-component",
     "polymer",
-    "paper",
     "dialog",
+    "overlay",
     "behavior"
   ],
   "main": [
