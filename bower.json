@@ -10,9 +10,7 @@
     "overlay",
     "behavior"
   ],
-  "main": [
-    "paper-dialog-behavior.html"
-  ],
+  "main": "paper-dialog-behavior.html",
   "private": true,
   "repository": {
     "type": "git",
