@@ -9,34 +9,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../paper-styles/paper-styles.html">
-
 <link rel="import" href="../paper-dialog-behavior.html">
+<link rel="import" href="../paper-dialog-behavior-styles.html">
 
 <dom-module id="simple-dialog">
-
-  <link rel="import" type="css" href="../paper-dialog-common.css">
-
   <template>
+    <style include="paper-dialog-behavior-styles"></style>
+
     <content></content>
   </template>
 
+  <script>
+    Polymer({
+      is: 'simple-dialog',
+
+      behaviors: [
+        Polymer.PaperDialogBehavior
+      ]
+    });
+  </script>
 </dom-module>
-
-<script>
-
-(function() {
-
-  Polymer({
-
-    is: 'simple-dialog',
-
-    behaviors: [
-      Polymer.PaperDialogBehavior
-    ]
-
-  });
-
-})();
-
-</script>
