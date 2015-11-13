@@ -22,7 +22,7 @@
   "dependencies": {
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^1.0.0",
     "paper-styles": "PolymerElements/paper-styles#^1.0.4",
-    "polymer": "Polymer/polymer#^1.0.0"
+    "polymer": "Polymer/polymer#^1.1.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
