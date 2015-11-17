@@ -17,7 +17,7 @@ _[Demo and API Docs](https://elements.polymer-project.org/elements/paper-dialog-
 ##Polymer.PaperDialogBehavior
 
 
-Use `Polymer.PaperDialogBehavior` and `paper-dialog-common.css` to implement a Material Design
+Use `Polymer.PaperDialogBehavior` and `paper-dialog-shared-styles.html` to implement a Material Design
 dialog.
 
 For example, if `<paper-dialog-impl>` implements this behavior:
@@ -31,7 +31,7 @@ For example, if `<paper-dialog-impl>` implements this behavior:
         </div>
     </paper-dialog-impl>
 
-`paper-dialog-common.css` provide styles for a header, content area, and an action area for buttons.
+`paper-dialog-shared-styles.html` provide styles for a header, content area, and an action area for buttons.
 Use the `<h2>` tag for the header and the `buttons` class for the action area. You can use the
 `paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
 
