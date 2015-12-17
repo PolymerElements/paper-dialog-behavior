@@ -24,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <link rel="import" href="../../test-fixture/test-fixture.html">
     <link rel="import" href="test-dialog.html">
+    <link rel="import" href="test-buttons.html">
 
   </head>
   <body>
@@ -37,6 +38,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <button dialog-dismiss>dismiss</button>
             <button dialog-confirm>confirm</button>
           </div>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="buttons">
+      <template>
+        <test-dialog>
+          <p>Dialog with test-buttons</p>
+          <test-buttons class="buttons"></test-buttons>
         </test-dialog>
       </template>
     </test-fixture>
@@ -125,6 +135,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
 
+        test('dialog-dismiss button inside a custom element is handled', function(done) {
+          var dialog = fixture('buttons');
+          runAfterOpen(dialog, function() {
+            dialog.addEventListener('iron-overlay-closed', function(event) {
+              assert.isFalse(event.detail.canceled, 'dialog is not canceled');
+              assert.isFalse(event.detail.confirmed, 'dialog is not confirmed');
+              done();
+            });
+            Polymer.dom(dialog).querySelector('test-buttons').$.dismiss.click();
+            // We don't wait too long to fail.
+            setTimeout(function didNotClose() {
+              done(new Error('dialog-dismiss click did not close overlay'));
+            }, 20);
+          });
+        });
+
         test('clicking dialog-confirm button closes the dialog with confirmation', function(done) {
           var dialog = fixture('basic');
           runAfterOpen(dialog, function() {
@@ -134,6 +160,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               done();
             });
             Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
+          });
+        });
+
+        test('dialog-confirm button inside a custom element is handled', function(done) {
+          var dialog = fixture('buttons');
+          runAfterOpen(dialog, function() {
+            dialog.addEventListener('iron-overlay-closed', function(event) {
+              assert.isFalse(event.detail.canceled, 'dialog is not canceled');
+              assert.isTrue(event.detail.confirmed, 'dialog is confirmed');
+              done();
+            });
+            Polymer.dom(dialog).querySelector('test-buttons').$.confirm.click();
+            // We don't wait too long to fail.
+            setTimeout(function didNotClose() {
+              done(new Error('dialog-confirm click did not close overlay'));
+            }, 20);
           });
         });
 
