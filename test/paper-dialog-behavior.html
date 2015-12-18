@@ -229,6 +229,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
 
+        test('focus is given to the autofocus element when clicking on backdrop', function(done) {
+          var dialog = fixture('modal');
+          dialog.addEventListener('iron-overlay-opened', onFirstOpen);
+          dialog.open();
+
+          function onFirstOpen() {
+            dialog.removeEventListener('iron-overlay-opened', onFirstOpen);
+            dialog.addEventListener('iron-overlay-closed', onFirstClose);
+            // Set the focus on dismiss button
+            // Calling .focus() won't trigger the dialog._onFocus
+            Polymer.dom(dialog).querySelector('[dialog-dismiss]').dispatchEvent(new Event('focus'));
+            // Close the dialog
+            dialog.close();
+          }
+
+          function onFirstClose() {
+            dialog.removeEventListener('iron-overlay-closed', onFirstClose);
+            dialog.addEventListener('iron-overlay-opened', onSecondOpen);
+            dialog.open();
+          }
+
+          function onSecondOpen() {
+            dialog.backdropElement.click();
+            setTimeout(function() {
+              assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
+              done();
+            }, 10);
+          }
+        });
+
       });
 
       suite('a11y', function() {
