@@ -110,6 +110,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
+    <test-fixture id="nestedmodals">
+      <template>
+        <test-dialog modal opened>
+          <p>Dialog 1</p>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+
+          <test-dialog modal opened>
+            <p>Dialog 2</p>
+            <div class="buttons">
+              <button dialog-dismiss>dismiss</button>
+              <button dialog-confirm autofocus>confirm</button>
+            </div>
+          </test-dialog>
+        </test-dialog>
+      </template>
+    </test-fixture>
+
     <script>
 
       function runAfterOpen(dialog, cb) {
@@ -188,6 +208,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               done(new Error('dialog-confirm click did not close overlay'));
             }, 20);
           });
+        });
+
+        test('clicking dialog-dismiss button closes only the dialog where is contained', function(done) {
+          var dialog = fixture('nestedmodals');
+          var innerDialog = Polymer.dom(dialog).querySelector('test-dialog');
+          Polymer.dom(innerDialog).querySelector('[dialog-dismiss]').click();
+          setTimeout(function() {
+            assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+            assert.isTrue(dialog.opened, 'dialog is still open');
+            done();
+          }, 10);
+        });
+
+        test('clicking dialog-confirm button closes only the dialog where is contained', function(done) {
+          var dialog = fixture('nestedmodals');
+          var innerDialog = Polymer.dom(dialog).querySelector('test-dialog');
+          Polymer.dom(innerDialog).querySelector('[dialog-confirm]').click();
+          setTimeout(function() {
+            assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+            assert.isTrue(dialog.opened, 'dialog is still open');
+            done();
+          }, 10);
         });
 
         test('with-backdrop works', function() {
