@@ -232,13 +232,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, 10);
         });
 
-        test('with-backdrop works', function() {
-          var dialog = fixture('backdrop');
-          runAfterOpen(dialog, function() {
-            assert.isTrue(dialog.backdropElement.opened, 'backdrop is open');
-          });
-        });
-
         test('modal dialog has backdrop', function() {
           var dialog = fixture('modal');
           assert.isTrue(dialog.withBackdrop, 'withBackdrop is true');
@@ -252,7 +245,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('clicking outside a modal dialog does not move focus from dialog', function(done) {
           var dialog = fixture('modal');
           runAfterOpen(dialog, function() {
-            dialog.backdropElement.click();
+            document.body.click();
             setTimeout(function() {
               assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
               done();
@@ -301,8 +294,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // Wait 10ms to allow focus changes
             dialogs[1].async(dialogs[1].open, 10);
             dialogs[1].addEventListener('iron-overlay-opened', function() {
-              // This will trigger backdropElement.click listener for both dialogs.
-              dialogs[1].backdropElement.click();
+              // This will trigger click listener for both dialogs.
+              document.body.click();
               // Wait 10ms to allow focus changes
               setTimeout(function() {
                 // Should not enter in an infinite loop.
@@ -335,7 +328,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
 
           function onSecondOpen() {
-            dialog.backdropElement.click();
+            document.body.click();
             setTimeout(function() {
               assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
               done();
