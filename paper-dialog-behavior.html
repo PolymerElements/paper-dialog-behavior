@@ -198,6 +198,7 @@ The `aria-labelledby` attribute will be set to the header element, if one exists
       if (this.modal) {
         document.body.addEventListener('focus', this._boundOnFocus, true);
         this.backdropElement.addEventListener('click', this._boundOnBackdropClick);
+        this._setParentsScrolling();
       }
     },
 
@@ -205,6 +206,26 @@ The `aria-labelledby` attribute will be set to the header element, if one exists
       this._lastFocusedElement = null;
       document.body.removeEventListener('focus', this._boundOnFocus, true);
       this.backdropElement.removeEventListener('click', this._boundOnBackdropClick);
+      this._setParentsScrolling();
+    },
+
+    _setParentsScrolling: function() {
+      // Fixes scrolling issues caused by '-webkit-overflow-scrolling' on mobile safari.
+      if ('-webkit-overflow-scrolling' in this.style) {
+        var parent = Polymer.dom(this).parentNode;
+        while (parent) {
+          if (this.opened) {
+            // Store the old value of '-webkit-overflow-scrolling'.
+            parent._oldWebkitOverflowScrolling = parent.style['-webkit-overflow-scrolling'];
+            parent.style['-webkit-overflow-scrolling'] = 'auto';
+          } else if ('_oldWebkitOverflowScrolling' in parent) {
+            // Restore the old value of '-webkit-overflow-scrolling'.
+            parent.style['-webkit-overflow-scrolling'] = parent._oldWebkitOverflowScrolling;
+            delete parent._oldWebkitOverflowScrolling;
+          }
+          parent = Polymer.dom(parent).parentNode;
+        }
+      }
     },
 
     _onFocus: function(event) {
