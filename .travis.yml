@@ -18,5 +18,6 @@ addons:
     packages:
       - google-chrome-stable
 script:
-  - xvfb-run wct
+  - xvfb-run wct -l chrome
+  - xvfb-run wct -l firefox
   - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
