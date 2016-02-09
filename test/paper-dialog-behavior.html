@@ -9,6 +9,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <html>
+
   <head>
 
     <title>paper-dialog-behavior tests</title>
@@ -27,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="test-buttons.html">
 
   </head>
+
   <body>
 
     <test-fixture id="basic">
@@ -63,14 +65,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="backdrop">
+    <test-fixture id="like-modal">
       <template>
-        <test-dialog with-backdrop>
+        <test-dialog no-cancel-on-esc-key no-cancel-on-outside-click with-backdrop>
           <p>Dialog</p>
-          <div class="buttons">
-            <button dialog-dismiss>dismiss</button>
-            <button dialog-confirm autofocus>confirm</button>
-          </div>
         </test-dialog>
       </template>
     </test-fixture>
@@ -132,6 +130,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
 
+      // Firefox 43 and later will keep the focus on the search bar, so we need
+      // to move the focus on the document for focus-related tests.
+      function ensureDocumentHasFocus() {
+        window.top && window.top.focus();
+      }
+
       function runAfterOpen(dialog, cb) {
         dialog.addEventListener('iron-overlay-opened', function() {
           cb();
@@ -175,10 +179,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               done();
             });
             Polymer.dom(dialog).querySelector('test-buttons').$.dismiss.click();
-            // We don't wait too long to fail.
-            setTimeout(function didNotClose() {
-              done(new Error('dialog-dismiss click did not close overlay'));
-            }, 20);
           });
         });
 
@@ -203,10 +203,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               done();
             });
             Polymer.dom(dialog).querySelector('test-buttons').$.confirm.click();
-            // We don't wait too long to fail.
-            setTimeout(function didNotClose() {
-              done(new Error('dialog-confirm click did not close overlay'));
-            }, 20);
           });
         });
 
@@ -232,14 +228,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, 10);
         });
 
-        test('modal dialog has backdrop', function() {
-          var dialog = fixture('modal');
-          assert.isTrue(dialog.withBackdrop, 'withBackdrop is true');
-        });
+        var properties = ['noCancelOnEscKey', 'noCancelOnOutsideClick', 'withBackdrop'];
+        properties.forEach(function(property) {
 
-        test('modal dialog has no-cancel-on-outside-click', function() {
-          var dialog = fixture('modal');
-          assert.isTrue(dialog.noCancelOnOutsideClick, 'noCancelOnOutsideClick is true');
+          test('modal sets ' + property + ' to true', function() {
+            var dialog = fixture('modal');
+            assert.isTrue(dialog[property], property);
+          });
+
+          test('modal toggling keeps current value of ' + property, function() {
+            var dialog = fixture('modal');
+            // Changed to false while modal is true.
+            dialog[property] = false;
+            dialog.modal = false;
+            assert.isFalse(dialog[property], property + ' is false');
+          });
+
+          test('modal toggling keeps previous value of ' + property, function() {
+            var dialog = fixture('basic');
+            // Changed before modal is true.
+            dialog[property] = true;
+            // Toggle twice to trigger observer.
+            dialog.modal = true;
+            dialog.modal = false;
+            assert.isTrue(dialog[property], property + ' is still true');
+          });
+
+          test('default modal does not override ' + property +' (attribute)', function() {
+            // Property is set on ready from attribute.
+            var dialog = fixture('like-modal');
+            assert.isTrue(dialog[property], property + ' is true');
+          });
+
+          test('modal toggling keeps previous value of ' + property + ' (attribute)', function() {
+            // Property is set on ready from attribute.
+            var dialog = fixture('like-modal');
+            // Toggle twice to trigger observer.
+            dialog.modal = true;
+            dialog.modal = false;
+            assert.isTrue(dialog[property], property + ' is still true');
+          });
+
         });
 
         test('clicking outside a modal dialog does not move focus from dialog', function(done) {
@@ -267,6 +296,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('multiple modal dialogs opened, handle focus change', function(done) {
+          ensureDocumentHasFocus();
+
           var dialogs = fixture('multiple');
           var focusChange = sinon.stub();
           document.body.addEventListener('focus', focusChange, true);
@@ -286,6 +317,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('multiple modal dialogs opened, handle backdrop click', function(done) {
+          ensureDocumentHasFocus();
+
           var dialogs = fixture('multiple');
           var focusChange = sinon.stub();
           document.body.addEventListener('focus', focusChange, true);
@@ -382,8 +415,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
       });
-
     </script>
 
   </body>
+
 </html>
