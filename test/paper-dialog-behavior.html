@@ -143,12 +143,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
 
-      // Firefox 43 and later will keep the focus on the search bar, so we need
-      // to move the focus on the document for focus-related tests.
-      function ensureDocumentHasFocus() {
-        window.top && window.top.focus();
-      }
-
       function runAfterOpen(dialog, cb) {
         dialog.addEventListener('iron-overlay-opened', function() {
           cb();
@@ -333,45 +327,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('multiple modal dialogs opened, handle focus change', function(done) {
-          ensureDocumentHasFocus();
-
           var dialogs = fixture('multiple');
-          var focusChange = sinon.stub();
-          document.body.addEventListener('focus', focusChange, true);
+          var spy = sinon.spy(dialogs[1]._focusNode, 'focus');
 
           runAfterOpen(dialogs[0], function() {
-            // Wait 10ms to allow focus changes
-            dialogs[1].async(dialogs[1].open, 10);
-            dialogs[1].addEventListener('iron-overlay-opened', function() {
-              // Wait 10ms to allow focus changes
-              setTimeout(function() {
-                // Should not enter in an infinite loop.
-                assert.equal(focusChange.callCount, 2, 'focus change count');
+            runAfterOpen(dialogs[1], function() {
+              // Each modal dialog will trap the focus within its children.
+              // Multiple modal dialogs doing it might result in an infinite loop
+              // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+              // causing a "Maximum call stack size exceeded" error.
+              // Wait 50ms and verify this does not happen.
+              Polymer.Base.async(function() {
+                assert.equal(spy.callCount, 1, 'focused only once');
                 done();
-              }, 10);
+              }, 50);
             });
           });
         });
 
         test('multiple modal dialogs opened, handle backdrop click', function(done) {
-          ensureDocumentHasFocus();
-
           var dialogs = fixture('multiple');
-          var focusChange = sinon.stub();
-          document.body.addEventListener('focus', focusChange, true);
+          var spy = sinon.spy(dialogs[1]._focusNode, 'focus');
 
           runAfterOpen(dialogs[0], function() {
-            // Wait 10ms to allow focus changes
-            dialogs[1].async(dialogs[1].open, 10);
-            dialogs[1].addEventListener('iron-overlay-opened', function() {
+            runAfterOpen(dialogs[1], function() {
               // This will trigger click listener for both dialogs.
               MockInteractions.tap(document.body);
-              // Wait 10ms to allow focus changes
-              setTimeout(function() {
+              // Each modal dialog will trap the focus within its children.
+              // Multiple modal dialogs doing it might result in an infinite loop
+              // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+              // causing a "Maximum call stack size exceeded" error.
+              // Wait 50ms and verify this does not happen.
+              Polymer.Base.async(function() {
                 // Should not enter in an infinite loop.
-                assert.equal(focusChange.callCount, 2, 'focus change count');
+                assert.equal(spy.callCount, 1, 'focused only once');
                 done();
-              }, 10);
+              }, 50);
             });
           });
         });
