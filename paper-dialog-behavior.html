@@ -32,9 +32,18 @@ For example, if `<paper-dialog-impl>` implements this behavior:
         </div>
     </paper-dialog-impl>
 
+    <paper-dialog-impl>
+        <div class="header">My fancy header</div>
+        <paper-dialog-scrollable>
+          <div>Dialog scrollable body</div>
+        </paper-dialog-scrollable>
+    </paper-dialog-impl>
+
 `paper-dialog-shared-styles.html` provide styles for a header, content area, and an action area for buttons.
-Use the `<h2>` tag for the header and the `buttons` class for the action area. You can use the
-`paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
+Use the `<h2>` tag for the header title or `header` class for other types of header elements,
+and the `buttons` class for the action area.
+
+You can use the `paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
 
 Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive controls to close the
 dialog. If the user dismisses the dialog with `dialog-confirm`, the `closingReason` will update
