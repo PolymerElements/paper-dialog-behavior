@@ -415,32 +415,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(dialog.getAttribute('aria-modal'), 'true', 'has aria-modal="true"');
         });
 
-        test('dialog with header has aria-labelledby', function() {
-          var dialog = fixture('header');
-          var header = Polymer.dom(dialog).querySelector('h2');
-          assert.ok(header.getAttribute('id'), 'header has auto-generated id');
-          assert.equal(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), 'aria-labelledby is set to header id');
-        });
-
-        test('dialog with lazily created header has aria-labelledby', function(done) {
-          var dialog = fixture('basic');
-          var header = document.createElement('h2');
-          Polymer.dom(dialog).appendChild(header);
-          Polymer.dom.flush();
-          setTimeout(function() {
-            assert.ok(header.getAttribute('id'), 'header has auto-generated id');
-            assert.equal(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), 'aria-labelledby is set to header id');
-            done();
-          }, 10);
-        });
-
-        test('dialog with header with id preserves id and has aria-labelledby', function() {
-          var dialog = fixture('header-with-id');
-          var header = Polymer.dom(dialog).querySelector('h2');
-          assert.equal(header.getAttribute('id'), 'header', 'header has preset id');
-          assert.equal(dialog.getAttribute('aria-labelledby'), 'header', 'aria-labelledby is set to header id');
-        });
-
       });
     </script>
 
