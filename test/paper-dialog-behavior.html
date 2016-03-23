@@ -143,10 +143,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
 
-      function runAfterOpen(dialog, cb) {
-        dialog.addEventListener('iron-overlay-opened', function() {
-          cb();
-        });
+      function runAfterOpen(dialog, callback) {
+        dialog.addEventListener('iron-overlay-opened', callback);
         dialog.open();
       }
 
@@ -328,7 +326,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         test('multiple modal dialogs opened, handle focus change', function(done) {
           var dialogs = fixture('multiple');
-          var spy = sinon.spy(dialogs[1]._focusNode, 'focus');
 
           runAfterOpen(dialogs[0], function() {
             runAfterOpen(dialogs[1], function() {
@@ -338,20 +335,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // causing a "Maximum call stack size exceeded" error.
               // Wait 50ms and verify this does not happen.
               Polymer.Base.async(function() {
-                assert.equal(spy.callCount, 1, 'focused only once');
+                // Should not enter in an infinite loop.
                 done();
               }, 50);
             });
           });
         });
 
-        test('multiple modal dialogs opened, handle backdrop click', function(done) {
+        test('multiple modal dialogs opened, handle outside click', function(done) {
           var dialogs = fixture('multiple');
-          var spy = sinon.spy(dialogs[1]._focusNode, 'focus');
 
           runAfterOpen(dialogs[0], function() {
             runAfterOpen(dialogs[1], function() {
-              // This will trigger click listener for both dialogs.
+              // Click should be handled only by dialogs[1].
               MockInteractions.tap(document.body);
               // Each modal dialog will trap the focus within its children.
               // Multiple modal dialogs doing it might result in an infinite loop
@@ -360,7 +356,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // Wait 50ms and verify this does not happen.
               Polymer.Base.async(function() {
                 // Should not enter in an infinite loop.
-                assert.equal(spy.callCount, 1, 'focused only once');
                 done();
               }, 50);
             });
