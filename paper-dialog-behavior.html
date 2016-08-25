@@ -63,14 +63,11 @@ It will also ensure that focus remains in the dialog.
        */
       modal: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: '_modalChanged'
       }
 
     },
-
-    observers: [
-      '_modalChanged(modal, _readied)'
-    ],
 
     listeners: {
       'tap': '_onDialogClick'
@@ -81,13 +78,17 @@ It will also ensure that focus remains in the dialog.
       this.__prevNoCancelOnOutsideClick = this.noCancelOnOutsideClick;
       this.__prevNoCancelOnEscKey = this.noCancelOnEscKey;
       this.__prevWithBackdrop = this.withBackdrop;
+      this.__readied = true;
+      if (this.modal) {
+        this._modalChanged(this.modal);
+      }
     },
 
-    _modalChanged: function(modal, readied) {
+    _modalChanged: function(modal) {
       // modal implies noCancelOnOutsideClick, noCancelOnEscKey and withBackdrop.
       // We need to wait for the element to be ready before we can read the
       // properties values.
-      if (!readied) {
+      if (!this.__readied) {
         return;
       }
 
@@ -121,7 +122,7 @@ It will also ensure that focus remains in the dialog.
       // Search for the element with dialog-confirm or dialog-dismiss,
       // from the root target until this (excluded).
       var path = Polymer.dom(event).path;
-      for (var i = 0; i < path.indexOf(this); i++) {
+      for (var i = 0, l = path.indexOf(this); i < l; i++) {
         var target = path[i];
         if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') || target.hasAttribute('dialog-confirm'))) {
           this._updateClosingReasonConfirmed(target.hasAttribute('dialog-confirm'));
