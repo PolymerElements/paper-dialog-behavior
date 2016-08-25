@@ -75,12 +75,11 @@ It will also ensure that focus remains in the dialog.
       'tap': '_onDialogClick'
     },
 
-    ready: function() {
+    attached: function() {
       // Only now these properties can be read.
       this.__prevNoCancelOnOutsideClick = this.noCancelOnOutsideClick;
       this.__prevNoCancelOnEscKey = this.noCancelOnEscKey;
       this.__prevWithBackdrop = this.withBackdrop;
-      this.__readied = true;
       if (this.modal) {
         this._modalChanged(this.modal);
       }
@@ -88,9 +87,9 @@ It will also ensure that focus remains in the dialog.
 
     _modalChanged: function(modal) {
       // modal implies noCancelOnOutsideClick, noCancelOnEscKey and withBackdrop.
-      // We need to wait for the element to be ready before we can read the
+      // We need to wait for the element to be attached before we can read the
       // properties values.
-      if (!this.__readied) {
+      if (!this.isAttached) {
         return;
       }
 
