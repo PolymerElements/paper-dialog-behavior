@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
 
 <script>
+(function() {
+'use strict';
 
 /**
 Use `Polymer.PaperDialogBehavior` and `paper-dialog-shared-styles.html` to implement a Material Design
@@ -73,7 +75,7 @@ It will also ensure that focus remains in the dialog.
       'tap': '_onDialogClick'
     },
 
-    ready: function () {
+    ready: function() {
       // Only now these properties can be read.
       this.__prevNoCancelOnOutsideClick = this.noCancelOnOutsideClick;
       this.__prevNoCancelOnEscKey = this.noCancelOnEscKey;
@@ -138,4 +140,5 @@ It will also ensure that focus remains in the dialog.
   /** @polymerBehavior */
   Polymer.PaperDialogBehavior = [Polymer.IronOverlayBehavior, Polymer.PaperDialogBehaviorImpl];
 
+})();
 </script>
