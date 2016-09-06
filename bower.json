@@ -29,7 +29,7 @@
     "iron-demo-helpers": "https://github.com/notwaldorf/iron-demo-helpers.git#2.0-preview",
     "iron-test-helpers": "https://github.com/notwaldorf/iron-test-helpers.git#2.0-preview",
     "paper-button": "https://github.com/notwaldorf/paper-button.git#2.0-preview",
-    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.0.0",
+    "paper-dialog-scrollable": "https://github.com/notwaldorf/paper-dialog-scrollable.git#2.0-preview",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0",
