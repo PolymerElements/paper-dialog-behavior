@@ -52,20 +52,23 @@ Custom property | Description | Default
         padding: 0;
       }
 
-      :host > ::slotted(*:first-child) {
-        margin-top: 24px;
-      }
-
-      :host > ::slotted(*:last-child) {
-        margin-bottom: 24px;
-      }
-
+      /* In 1.x, this selector was `:host > ::content h2`. In 2.x <slot> allows
+      to only select only direct children, which increases the weight of this
+      selector, so we have to move it before first-child/last-child selectors */
       :host > ::slotted(h2) {
         position: relative;
         margin: 0;
         @apply --paper-font-title;
 
         @apply --paper-dialog-title;
+      }
+
+      :host > ::slotted(*:first-child) {
+        margin-top: 24px;
+      }
+
+      :host > ::slotted(*:last-child) {
+        margin-bottom: 24px;
       }
 
       :host > ::slotted(.buttons) {
