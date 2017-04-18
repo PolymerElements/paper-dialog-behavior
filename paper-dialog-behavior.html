@@ -64,6 +64,10 @@ It will also ensure that focus remains in the dialog.
       modal: {
         type: Boolean,
         value: false
+      },
+      closingReason: {
+        type: Object,
+        notify: true
       }
 
     },
@@ -110,7 +114,7 @@ It will also ensure that focus remains in the dialog.
 
     _updateClosingReasonConfirmed: function(confirmed) {
       this.closingReason = this.closingReason || {};
-      this.closingReason.confirmed = confirmed;
+      this.set('closingReason.confirmed', confirmed);
     },
 
     /**
