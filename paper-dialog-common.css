@@ -20,26 +20,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @apply(--paper-dialog);
 }
 
-:host > ::content > * {
+:host > ::content > *:not(.header):not(.buttons) {
   margin-top: 20px;
   padding: 0 24px;
 }
 
-:host > ::content > .no-padding {
-  padding: 0;
-}
-
-:host > ::content > *:first-child {
+:host > ::content > *:first-child:not(.header) {
   margin-top: 24px;
 }
 
-:host > ::content > *:last-child {
+:host > ::content > *:last-child:not(.buttons) {
   margin-bottom: 24px;
 }
 
-:host > ::content h2 {
+:host > ::content > .no-padding:not(.buttons) {
+  padding: 0;
+}
+
+:host > ::content > h2 {
   position: relative;
-  margin: 0;
   @apply(--paper-font-title);
 
   @apply(--paper-dialog-title);
@@ -48,7 +47,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 :host > ::content .buttons {
   position: relative;
   padding: 8px 8px 8px 24px;
-  margin: 0;
 
   color: var(--paper-dialog-button-color, --primary-color);
 
