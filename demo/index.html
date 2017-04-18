@@ -51,6 +51,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <simple-dialog id="modalAlert" modal role="alertdialog">
         <h2>Alert</h2>
         <paper-dropdown-menu-light label="Draft to discard">
+          <!--
+            support hybrid mode: 
+            paper-dropdown-menu-light 1.x distributes via <content select=".dropdown-content">
+            paper-dropdown-menu-light 2.x distributes via <slot name="dropdown-content">
+          -->
           <paper-listbox class="dropdown-content" slot="dropdown-content">
             <paper-item>Draft 1</paper-item>
             <paper-item>Draft 2</paper-item>
