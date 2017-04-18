@@ -33,7 +33,7 @@ to include `confirmed: true`.
 - `paper-dialog-shared-styles` styles direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom)
 (compound selector will select only top level nodes)
 - Removed `paper-dialog-common.css` as it's a duplicate of `paper-dialog-shared-styles.html`.
-Import the shared styles via `<style include="paper-dialog-shared-styles">` ([see example](https://github.com/PolymerElements/paper-dialog-behavior/blob/master/demo/simple-dialog.html))
+Import the shared styles via `<style include="paper-dialog-shared-styles">` ([see example](demo/simple-dialog.html))
 
 ### Accessibility
 
