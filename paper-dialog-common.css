@@ -52,6 +52,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   color: var(--paper-dialog-button-color, --primary-color);
 
-  @apply(--layout-horizontal);
-  @apply(--layout-end-justified);
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
 }
