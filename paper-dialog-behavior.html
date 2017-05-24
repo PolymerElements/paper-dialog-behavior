@@ -131,9 +131,22 @@ It will also ensure that focus remains in the dialog.
       var path = Polymer.dom(event).path;
       for (var i = 0, l = path.indexOf(this); i < l; i++) {
         var target = path[i];
-        if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') || target.hasAttribute('dialog-confirm'))) {
-          this._updateClosingReasonConfirmed(target.hasAttribute('dialog-confirm'));
-          this.close();
+        if (!target.hasAttribute) {
+          continue;
+        }
+        
+        var hasConfirm = target.hasAttribute('dialog-confirm');
+        var hasDismiss = target.hasAttribute('dialog-dismiss');
+        
+        if (hasConfirm || hasDismiss) {
+          this._updateClosingReasonConfirmed(hasConfirm);
+          
+          if (hasDismiss) {
+            this.cancel();
+          } else {
+            this.close();
+          }
+          
           event.stopPropagation();
           break;
         }
