@@ -1,7 +1,5 @@
 [![Build status](https://travis-ci.org/PolymerElements/paper-dialog-behavior.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-dialog-behavior)
-
-_[Demo and API docs](https://elements.polymer-project.org/elements/paper-dialog-behavior)_
-
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/PolymerElements/paper-dialog-behavior)
 
 ## Polymer.PaperDialogBehavior
 
