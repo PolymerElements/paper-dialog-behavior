@@ -19,36 +19,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-  <link rel="import" href="simple-dialog.html">
+  <script type="module" src="./simple-dialog.js"></script>
 
-  <link rel="import" href="../../paper-button/paper-button.html">
-  <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu-light.html">
-  <link rel="import" href="../../paper-item/paper-item.html">
-  <link rel="import" href="../../paper-listbox/paper-listbox.html">
-  <link rel="import" href="../../paper-dialog-scrollable/paper-dialog-scrollable.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <script type="module" src="../../paper-button/paper-button.js"></script>
+  <script type="module" src="../../paper-dropdown-menu/paper-dropdown-menu-light.js"></script>
+  <script type="module" src="../../paper-item/paper-item.js"></script>
+  <script type="module" src="../../paper-listbox/paper-listbox.js"></script>
+  <script type="module" src="../../paper-dialog-scrollable/paper-dialog-scrollable.js"></script>
+  <script type="module" src="../../iron-demo-helpers/demo-snippet.js"></script>
+  <script type="module" src="../../iron-demo-helpers/demo-pages-shared-styles.js"></script>
 
-  <custom-style><style is="custom-style" include="demo-pages-shared-styles"></style></custom-style>
+  <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<custom-style><style is="custom-style" include="demo-pages-shared-styles"></style></custom-style>`;
+document.body.appendChild($_documentContainer);
+</script>
 </head>
 <body unresolved class="centered">
 
-  <h3>An element with <code>PaperDialogBehavior</code> can be opened, closed, toggled. Use <code>h2</code> for the title</h3>
-  <demo-snippet class="centered-demo">
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<h3>An element with <code>PaperDialogBehavior</code> can be opened, closed, toggled. Use <code>h2</code> for the title</h3>`;
+document.body.appendChild($_documentContainer);
+</script>
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+
+$_documentContainer.innerHTML = `<demo-snippet class="centered-demo">
     <template>
-      <paper-button raised onclick="dialog.toggle()">dialog</paper-button>
+      <paper-button raised="" onclick="dialog.toggle()">dialog</paper-button>
       <simple-dialog id="dialog">
         <h2>Dialog Title</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </simple-dialog>
     </template>
-  </demo-snippet>
+  </demo-snippet>`;
 
-  <h3>An element with <code>PaperDialogBehavior</code> can be modal. Use the attributes <code>dialog-dismiss</code> and <code>dialog-confirm</code> on the children to close it.</h3>
-  <demo-snippet class="centered-demo">
+document.body.appendChild($_documentContainer);
+</script>
+
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<h3>An element with <code>PaperDialogBehavior</code> can be modal. Use the attributes <code>dialog-dismiss</code> and <code>dialog-confirm</code> on the children to close it.</h3>`;
+document.body.appendChild($_documentContainer);
+</script>
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+
+$_documentContainer.innerHTML = `<demo-snippet class="centered-demo">
     <template>
-      <paper-button raised onclick="modalAlert.toggle()">modal alert</paper-button>
-      <simple-dialog id="modalAlert" modal role="alertdialog">
+      <paper-button raised="" onclick="modalAlert.toggle()">modal alert</paper-button>
+      <simple-dialog id="modalAlert" modal="" role="alertdialog">
         <h2>Alert</h2>
         <paper-dropdown-menu-light label="Draft to discard">
           <!--
@@ -65,24 +94,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-dropdown-menu-light>
         <div class="buttons">
           <paper-button onclick="modalDetails.toggle()">More details</paper-button>
-          <paper-button dialog-dismiss>Cancel</paper-button>
-          <paper-button dialog-confirm autofocus>Discard</paper-button>
+          <paper-button dialog-dismiss="">Cancel</paper-button>
+          <paper-button dialog-confirm="" autofocus="">Discard</paper-button>
         </div>
       </simple-dialog>
-      <simple-dialog id="modalDetails" modal>
+      <simple-dialog id="modalDetails" modal="">
         <h2>Details</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <div class="buttons">
-          <paper-button dialog-confirm autofocus>OK</paper-button>
+          <paper-button dialog-confirm="" autofocus="">OK</paper-button>
         </div>
       </simple-dialog>
     </template>
-  </demo-snippet>
+  </demo-snippet>`;
 
-  <h3>Use <code>paper-dialog-scrollable</code> for scrolling content</h3>
-  <demo-snippet class="centered-demo">
+document.body.appendChild($_documentContainer);
+</script>
+
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<h3>Use <code>paper-dialog-scrollable</code> for scrolling content</h3>`;
+document.body.appendChild($_documentContainer);
+</script>
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+
+$_documentContainer.innerHTML = `<demo-snippet class="centered-demo">
     <template>
-      <paper-button raised onclick="scrolling.toggle()">scrolling</paper-button>
+      <paper-button raised="" onclick="scrolling.toggle()">scrolling</paper-button>
       <simple-dialog id="scrolling">
         <h2>Scrolling</h2>
         <paper-dialog-scrollable>
@@ -96,12 +135,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </paper-dialog-scrollable>
         <div class="buttons">
-          <paper-button dialog-dismiss>Cancel</paper-button>
-          <paper-button dialog-confirm>OK</paper-button>
+          <paper-button dialog-dismiss="">Cancel</paper-button>
+          <paper-button dialog-confirm="">OK</paper-button>
         </div>
       </simple-dialog>
     </template>
-  </demo-snippet>
+  </demo-snippet>`;
+
+document.body.appendChild($_documentContainer);
+</script>
 
 </body>
 </html>
