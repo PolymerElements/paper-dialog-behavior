@@ -1,0 +1,10 @@
+{
+  "name": "@polymer/paper-dialog-behavior",
+  "private": true,
+  "description": "Implements a behavior used for material design dialogs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-dialog-behavior"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt"
+}
