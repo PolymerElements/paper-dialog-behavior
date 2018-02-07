@@ -44,7 +44,7 @@ declare namespace Polymer {
    * If `modal` is set, the element will prevent the focus from exiting the element.
    * It will also ensure that focus remains in the dialog.
    */
-  interface PaperDialogBehavior {
+  interface PaperDialogBehavior extends Polymer.IronOverlayBehavior {
     hostAttributes: object|null;
 
     /**
