@@ -51,7 +51,7 @@ declare namespace Polymer {
      * If `modal` is true, this implies `no-cancel-on-outside-click`, `no-cancel-on-esc-key` and `with-backdrop`.
      */
     modal: boolean|null|undefined;
-    ready(): any;
+    ready(): void;
     _modalChanged(modal: any, readied: any): any;
     _updateClosingReasonConfirmed(confirmed: any): any;
 
