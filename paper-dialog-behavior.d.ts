@@ -45,21 +45,21 @@ declare namespace Polymer {
    * It will also ensure that focus remains in the dialog.
    */
   interface PaperDialogBehavior extends Polymer.IronOverlayBehavior {
-    hostAttributes: object|null;
 
     /**
      * If `modal` is true, this implies `no-cancel-on-outside-click`, `no-cancel-on-esc-key` and `with-backdrop`.
      */
     modal: boolean|null|undefined;
+    hostAttributes: object|null;
     ready(): void;
-    _modalChanged(modal: any, readied: any): any;
-    _updateClosingReasonConfirmed(confirmed: any): any;
+    _modalChanged(modal: any, readied: any): void;
+    _updateClosingReasonConfirmed(confirmed: any): void;
 
     /**
      * Will dismiss the dialog if user clicked on an element with dialog-dismiss
      * or dialog-confirm attribute.
      */
-    _onDialogClick(event: any): any;
+    _onDialogClick(event: any): void;
   }
 
   const PaperDialogBehavior: object;
