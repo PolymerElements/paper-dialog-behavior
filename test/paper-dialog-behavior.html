@@ -31,6 +31,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body>
 
+    <custom-style><style is="custom-style">
+      .no-margin-title {
+        --paper-dialog-title: {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+    </style></custom-style>
+
     <test-fixture id="basic">
       <template>
         <test-dialog>
@@ -89,23 +98,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <test-fixture id="header">
       <template>
         <test-dialog>
-          <h2>Dialog</h2>
-          <div class="buttons">
-            <button dialog-dismiss>dismiss</button>
-            <button dialog-confirm autofocus>confirm</button>
-          </div>
+          <h2>1st</h2>
+          <h2>2nd</h2>
+          <h2>3rd</h2>
         </test-dialog>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="header-with-id">
-      <template>
-        <test-dialog>
-          <h2 id="header">Dialog</h2>
-          <div class="buttons">
-            <button dialog-dismiss>dismiss</button>
-            <button dialog-confirm autofocus>confirm</button>
-          </div>
+        <test-dialog class="no-margin-title">
+          <h2>1st</h2>
+          <h2>2nd</h2>
+          <h2>3rd</h2>
         </test-dialog>
       </template>
     </test-fixture>
@@ -393,6 +393,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         });
 
+      });
+
+      suite('style', function() {
+
+        test('apply margin to <h2>', function() {
+          var dialog = fixture('header')[0];
+          var h2s = dialog.querySelectorAll('h2');
+          assert.equal(getComputedStyle(h2s[0]).marginTop, '24px', '1st margin-top');
+          assert.equal(getComputedStyle(h2s[1]).marginTop, '0px', '2nd margin-top');
+          assert.equal(getComputedStyle(h2s[1]).marginBottom, '0px', '2nd margin-bottom');
+          assert.equal(getComputedStyle(h2s[2]).marginBottom, '24px', '3rd margin-bottom');
+        });
+
+        test('applies --paper-dialog-title mixin', function() {
+          var dialog = fixture('header')[1];
+          var h2s = dialog.querySelectorAll('h2');
+          assert.equal(getComputedStyle(h2s[0]).marginTop, '0px', '1st margin-top');
+          assert.equal(getComputedStyle(h2s[1]).marginTop, '0px', '2nd margin-top');
+          assert.equal(getComputedStyle(h2s[1]).marginBottom, '0px', '2nd margin-bottom');
+          assert.equal(getComputedStyle(h2s[2]).marginBottom, '0px', '3rd margin-bottom');
+        });
       });
 
       suite('a11y', function() {
