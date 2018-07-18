@@ -15,15 +15,11 @@ The following custom properties and mixins are available for styling.
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-dialog-background-color` | Dialog background color |
-`--primary-background-color`
-`--paper-dialog-color`            | Dialog foreground color |
-`--primary-text-color`
-`--paper-dialog`                  | Mixin applied to the dialog | `{}`
-`--paper-dialog-title`            | Mixin applied to the title (`<h2>`) element
-| `{}`
-`--paper-dialog-button-color`     | Button area foreground color |
-`--default-primary-color`
+`--paper-dialog-background-color` | Dialog background color | `--primary-background-color`
+`--paper-dialog-color` | Dialog foreground color | `--primary-text-color`
+`--paper-dialog` | Mixin applied to the dialog | `{}`
+`--paper-dialog-title` | Mixin applied to the title (`<h2>`) element | `{}`
+`--paper-dialog-button-color` | Button area foreground color | `--default-primary-color`
 */
 import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
