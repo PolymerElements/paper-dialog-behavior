@@ -1,3 +1,26 @@
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+/*
+### Styling
+
+The following custom properties and mixins are available for styling.
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-dialog-background-color` | Dialog background color | `--primary-background-color`
+`--paper-dialog-color` | Dialog foreground color | `--primary-text-color`
+`--paper-dialog` | Mixin applied to the dialog | `{}`
+`--paper-dialog-title` | Mixin applied to the title (`<h2>`) element | `{}`
+`--paper-dialog-button-color` | Button area foreground color | `--default-primary-color`
+*/
 import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-styles/default-theme.js';
@@ -78,32 +101,3 @@ $_documentContainer.innerHTML = `<dom-module id="paper-dialog-shared-styles">
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
-
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-/*
-### Styling
-
-The following custom properties and mixins are available for styling.
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-dialog-background-color` | Dialog background color                     | `--primary-background-color`
-`--paper-dialog-color`            | Dialog foreground color                     | `--primary-text-color`
-`--paper-dialog`                  | Mixin applied to the dialog                 | `{}`
-`--paper-dialog-title`            | Mixin applied to the title (`<h2>`) element | `{}`
-`--paper-dialog-button-color`     | Button area foreground color                | `--default-primary-color`
-*/
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-;

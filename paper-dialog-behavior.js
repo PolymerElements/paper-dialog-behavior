@@ -1,16 +1,17 @@
 /**
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
 */
 import '@polymer/polymer/polymer-legacy.js';
 
-import { IronOverlayBehavior } from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
-import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import {IronOverlayBehavior} from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
+import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
 
 /**
   Use `Polymer.PaperDialogBehavior` and `paper-dialog-shared-styles.html` to
@@ -27,22 +28,23 @@ import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
           </div>
       </paper-dialog-impl>
 
-  `paper-dialog-shared-styles.html` provide styles for a header, content area, and
-  an action area for buttons. Use the `<h2>` tag for the header and the `buttons`
-  class for the action area. You can use the `paper-dialog-scrollable` element (in
-  its own repository) if you need a scrolling content area.
+  `paper-dialog-shared-styles.html` provide styles for a header, content area,
+  and an action area for buttons. Use the `<h2>` tag for the header and the
+  `buttons` class for the action area. You can use the `paper-dialog-scrollable`
+  element (in its own repository) if you need a scrolling content area.
 
-  Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive controls
-  to close the dialog. If the user dismisses the dialog with `dialog-confirm`, the
-  `closingReason` will update to include `confirmed: true`.
+  Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive
+  controls to close the dialog. If the user dismisses the dialog with
+  `dialog-confirm`, the `closingReason` will update to include `confirmed:
+  true`.
 
   ### Accessibility
 
-  This element has `role="dialog"` by default. Depending on the context, it may be
-  more appropriate to override this attribute with `role="alertdialog"`.
+  This element has `role="dialog"` by default. Depending on the context, it may
+  be more appropriate to override this attribute with `role="alertdialog"`.
 
-  If `modal` is set, the element will prevent the focus from exiting the element.
-  It will also ensure that focus remains in the dialog.
+  If `modal` is set, the element will prevent the focus from exiting the
+  element. It will also ensure that focus remains in the dialog.
 
   @hero hero.svg
   @demo demo/index.html
@@ -134,4 +136,5 @@ export const PaperDialogBehaviorImpl = {
 };
 
 /** @polymerBehavior */
-export const PaperDialogBehavior = [IronOverlayBehavior, PaperDialogBehaviorImpl];
+export const PaperDialogBehavior =
+    [IronOverlayBehavior, PaperDialogBehaviorImpl];
