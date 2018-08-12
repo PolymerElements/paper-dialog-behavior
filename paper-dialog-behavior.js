@@ -48,7 +48,7 @@ import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
 
   @hero hero.svg
   @demo demo/index.html
-  @polymerBehavior Polymer.PaperDialogBehavior
+  @polymerBehavior PaperDialogBehavior
  */
 export const PaperDialogBehaviorImpl = {
 
